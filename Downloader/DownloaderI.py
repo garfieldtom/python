@@ -190,8 +190,9 @@ class Downloader:
         self.url = url
         #设定下载的线程数量
         self.numThread = numThread
-        #设定下载的文件摩洛哥
+        #设定下载的文件名
         self.filename = filename if filename else os.path.split(url)[1]
+        #解码文件名
         self.filename = unquote(self.filename)
 
 
