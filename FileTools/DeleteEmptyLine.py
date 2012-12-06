@@ -19,13 +19,15 @@ def refile():
         sf=sys.argv[1]
         df=sys.argv[2]
 
-    fr=open(sf,'r')
+    #U模式可以使所有的换行符/字符串(\r\n,\r,\n)都被转换为\n,而不用考虑运行的平台
+    fr=open(sf,'rU')
     fw=open(df,'w')
     s=fr.read()
     print(s)
-    result, number = re.subn('(^\r)', '', s) 
+    #如果有连续两个及以上的\n,则替换为一个\n,这样即可删除空行
+    result, number = re.subn('(\n){2,}', '\n', s) 
     
-    fw.write(s)
+    fw.write(result)
        
     fr.close()
     fw.close()
