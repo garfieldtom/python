@@ -14,10 +14,6 @@ pyhton3 DownloaderI.py
 提示输入下载连接，不输入则为 http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi
 '''
 
-#TODO:
-#urlencode编码的地址处理
-#地址中含中文的处理
-
 from urllib.request import *
 from urllib.parse import *
 from threading import *
