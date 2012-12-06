@@ -19,6 +19,7 @@ pyhton3 DownloaderI.py
 #地址中含中文的处理
 
 from urllib.request import *
+from urllib.parse import *
 from threading import *
 import time
 import os
@@ -195,6 +196,7 @@ class Downloader:
         self.numThread = numThread
         #设定下载的文件摩洛哥
         self.filename = filename if filename else os.path.split(url)[1]
+        self.filename = unquote(self.filename)
 
 
     def start(self):
@@ -250,23 +252,24 @@ if __name__ == '__main__':
     #判断命令行参数
     if argvc==1:
         print('usage:DownloaderI.py url [threadnum] [downloadfilename]')
-        f=input('请输入要下载文件名：')
+        url=input('请输入要下载的远程文件的URL：')
         #如果没有输入，则测试设定的文件下载
-        if f=="":
-            f="http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi"
+        if url=="":
+            url="http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi"
     if argvc==2:
-        f=sys.argv[1]
+        url=sys.argv[1]
     if argvc==3:
-        f=sys.argv[1]
+        url=sys.argv[1]
         dnum=sys.argv[2]
     if argvc==4:
-        f=sys.argv[1]
+        url=sys.argv[1]
         dnum=sys.argv[2]
         dfile=sys.argv[3]
-        
+    #转换编码
+    #url=quote(url)    
     #判断是否输入了下载后保存的文件名    
     if dfilename=="":
-        downfile(f, dnum)
+        downfile(url, dnum)
     else:
-        downfile(f, dnum,dfilename)
+        downfile(url, dnum,dfilename)
     
