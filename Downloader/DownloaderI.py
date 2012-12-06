@@ -1,4 +1,22 @@
 #-*- coding:utf-8 -*-
+'''
+多线程下载文件
+用法：
+DownloaderI.py url [threadnum] [downloadfilename]
+url:下载的地址
+threadnum:下载的线程数，默认为4
+downlaodfilename:下载后保存的文件名，如果为空，则取下载文件的文件名，即同名
+示例：
+1.全部
+pyhton3 DownloaderI.py http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi 4 mypython-3.2.1.msi
+2.简单
+pyhton3 DownloaderI.py
+提示输入下载连接，不输入则为 http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi
+'''
+
+#TODO:
+#urlencode编码的地址处理
+#地址中含中文的处理
 
 from urllib.request import *
 from threading import *
@@ -171,8 +189,11 @@ class DownTask(Thread):
 
 class Downloader:
     def __init__(self, url, numThread = 4, filename = None):
+        #设定下载地址
         self.url = url
+        #设定下载的线程数量
         self.numThread = numThread
+        #设定下载的文件摩洛哥
         self.filename = filename if filename else os.path.split(url)[1]
 
 
@@ -215,7 +236,37 @@ class Downloader:
                     break
             f.close()
             con.close()
+            
+def downfile(url,dnum):
+    d = Downloader(url, 6)
+    d.start()
                 
-
-d = Downloader("http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi", 6)
-d.start()
+if __name__ == '__main__':
+    #初始化下载的线程数
+    dnum=4
+    #下载后保存的文件名
+    dfilename=''
+    argvc=len(sys.argv)
+    #判断命令行参数
+    if argvc==1:
+        print('usage:DownloaderI.py url [threadnum] [downloadfilename]')
+        f=input('请输入要下载文件名：')
+        #如果没有输入，则测试设定的文件下载
+        if f=="":
+            f="http://www.python.org/ftp/python/3.2.1/python-3.2.1.msi"
+    if argvc==2:
+        f=sys.argv[1]
+    if argvc==3:
+        f=sys.argv[1]
+        dnum=sys.argv[2]
+    if argvc==4:
+        f=sys.argv[1]
+        dnum=sys.argv[2]
+        dfile=sys.argv[3]
+        
+    #判断是否输入了下载后保存的文件名    
+    if dfilename=="":
+        downfile(f, dnum)
+    else:
+        downfile(f, dnum,dfilename)
+    
