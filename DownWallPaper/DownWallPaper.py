@@ -42,14 +42,14 @@ def getimglist(doc):
     #取照图图片地址
     regImg =  '<td class="show_mainbox"><img src=\'(.*?)\''
     imglist = re.findall(regImg,doc)
-    print(imglist)
+    #print(imglist)
     return imglist
     
 
 if __name__=="__main__":
-    for i in range(1,13):
+    for i in range(1,11):
         print('开始下载第%d个....' % i)
         #打开http://wallpaper.pconline.com.cn，选择一个系列，然后打开一个图片，打开原图，地址就是类似下面的样子
         #然后是系列的序号，总个数参考网页，其实可以从网页上抓取，偷懒了  :-)
-        url="http://wallpaper.pconline.com.cn/picsource/13307_"+str(i)+".html"
+        url="http://wallpaper.pconline.com.cn/picsource/12721_"+str(i)+".html"
         downwallpapers(url)
