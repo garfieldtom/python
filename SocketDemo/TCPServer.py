@@ -12,7 +12,7 @@ sock.bind(ADDR)
 
 sock.listen(5)
 while True:
-    print('waiting for connection')
+    print('waiting for connection at port:%d' % (PORT))
     tcpClientSock, addr=sock.accept()
     print('connect from ', addr)
     while True:
