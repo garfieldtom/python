@@ -1,0 +1,4 @@
+print("Hello,Garfield !");
+
+def hello(s):
+    print(s);
